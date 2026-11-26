@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PureFile — The Private, 100% Offline PDF & File Toolbox</title>
+  <meta name="description" content="PureFile is a private, offline PDF, image, and ZIP toolbox for Android. Merge, compress, convert, sign, and encrypt documents with zero cloud uploads.">
+  <meta name="keywords" content="PDF tools, offline PDF, compress PDF, merge PDF, convert image, sign PDF, biometric vault, private file manager, PureFile">
+  <link rel="icon" type="image/png" href="assets/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #070B14;
+      --bg-surface: #0D1526;
+      --bg-card: rgba(13, 21, 38, 0.7);
+      --border-card: rgba(94, 234, 212, 0.15);
+      --teal-primary: #0F766E;
+      --teal-light: #14B8A6;
+      --mint-glow: #5EEAD4;
+      --cyan-bright: #38BDF8;
+      --blue-sapphire: #0284C7;
+      --accent-pink: #F472B6;
+      --accent-amber: #FBBF24;
+      --accent-purple: #C084FC;
+      --emerald: #10B981;
+      --text-white: #FFFFFF;
+      --text-main: #F1F5F9;
+      --text-muted: #94A3B8;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(15, 118, 110, 0.22) 0%, transparent 45%),
+        radial-gradient(circle at 85% 30%, rgba(2, 132, 199, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 50% 85%, rgba(20, 184, 166, 0.12) 0%, transparent 60%);
+      background-attachment: fixed;
+    }
+
+    /* Header & Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(7, 11, 20, 0.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #FFFFFF;
+      font-weight: 800;
+      font-size: 21px;
+      letter-spacing: -0.02em;
+    }
+    .brand img {
+      width: 40px;
+      height: 40px;
+      border-radius: 11px;
+      box-shadow: 0 4px 16px rgba(15, 118, 110, 0.5);
+    }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .nav-menu a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14.5px;
+      font-weight: 600;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .nav-menu a:hover {
+      color: var(--mint-glow);
+    }
+    .btn-download-nav {
+      background: linear-gradient(135deg, var(--teal-primary), var(--blue-sapphire));
+      color: #FFFFFF !important;
+      padding: 9px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+      border: 1px solid rgba(94, 234, 212, 0.3);
+      box-shadow: 0 4px 16px rgba(15, 118, 110, 0.35);
+      transition: all 0.25s ease;
+    }
+    .btn-download-nav:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(94, 234, 212, 0.45);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 90px 0 70px;
+      text-align: center;
+      position: relative;
+    }
+    .pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(15, 118, 110, 0.18);
+      border: 1px solid rgba(94, 234, 212, 0.4);
+      color: var(--mint-glow);
+      padding: 7px 18px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      box-shadow: 0 0 20px rgba(94, 234, 212, 0.15);
+    }
+    .pill-badge .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 10px var(--emerald);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 0.6; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.15); }
+      100% { opacity: 0.6; transform: scale(0.9); }
+    }
+    .hero h1 {
+      font-size: 58px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 22px;
+      background: linear-gradient(135deg, #FFFFFF 20%, #E2E8F0 60%, var(--mint-glow) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 20px;
+      color: var(--text-muted);
+      max-width: 740px;
+      margin: 0 auto 36px;
+      font-weight: 500;
+    }
+    .hero-cta {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 50px;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #0F766E 0%, #0284C7 100%);
+      color: #FFFFFF;
+      padding: 16px 34px;
+      border-radius: 14px;
+      font-size: 16.5px;
+      font-weight: 800;
+      text-decoration: none;
+      border: 1px solid rgba(94, 234, 212, 0.4);
+      box-shadow: 0 12px 30px rgba(15, 118, 110, 0.45);
+      transition: all 0.25s ease;
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 36px rgba(15, 118, 110, 0.6);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      padding: 16px 30px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(10px);
+      transition: all 0.25s ease;
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: rgba(94, 234, 212, 0.4);
+      color: var(--mint-glow);
+    }
+
+    /* Live HUD Monitor Strip */
+    .hud-strip {
+      max-width: 860px;
+      margin: 0 auto;
+      background: rgba(13, 21, 38, 0.85);
+      border: 1px solid rgba(94, 234, 212, 0.25);
+      border-radius: 16px;
+      padding: 18px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+    .hud-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13.5px;
+      font-family: var(--font-mono);
+    }
+    .hud-val {
+      font-weight: 700;
+      color: var(--mint-glow);
+    }
+
+    /* Section Titles */
+    .section-header {
+      text-align: center;
+      margin: 100px 0 48px;
+    }
+    .section-tag {
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mint-glow);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .section-title {
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+      margin-bottom: 14px;
+    }
+    .section-desc {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    /* Bento Grid */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
+    }
+    .bento-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 24px;
+      padding: 36px 32px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .bento-card:hover {
+      border-color: rgba(94, 234, 212, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    }
+    .card-col-8 { grid-column: span 8; }
+    .card-col-4 { grid-column: span 4; }
+    .card-col-6 { grid-column: span 6; }
+    .card-col-12 { grid-column: span 12; }
+
+    .card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      margin-bottom: 22px;
+    }
+    .icon-teal { background: rgba(15, 118, 110, 0.25); color: var(--mint-glow); border: 1px solid rgba(94, 234, 212, 0.3); }
+    .icon-blue { background: rgba(2, 132, 199, 0.25); color: var(--cyan-bright); border: 1px solid rgba(56, 189, 248, 0.3); }
+    .icon-pink { background: rgba(236, 72, 153, 0.25); color: var(--accent-pink); border: 1px solid rgba(244, 114, 182, 0.3); }
+    .icon-amber { background: rgba(245, 158, 11, 0.25); color: var(--accent-amber); border: 1px solid rgba(251, 191, 36, 0.3); }
+    .icon-purple { background: rgba(124, 58, 237, 0.25); color: var(--accent-purple); border: 1px solid rgba(192, 132, 252, 0.3); }
+
+    .bento-card h3 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+    .bento-card p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .feature-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tag {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #E2E8F0;
+    }
+
+    /* Comparison Table */
+    .comparison-section {
+      margin-top: 100px;
+      background: var(--bg-surface);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 28px;
+      padding: 50px 40px;
+    }
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 36px;
+    }
+    .comp-table th, .comp-table td {
+      padding: 18px 20px;
+      text-align: left;
+      font-size: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .comp-table th {
+      font-size: 15px;
+      font-weight: 800;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .comp-table th.highlight, .comp-table td.highlight {
+      background: rgba(15, 118, 110, 0.12);
+      color: var(--mint-glow);
+      font-weight: 700;
+    }
+    .comp-table tr:last-child td { border-bottom: none; }
+
+    /* Screenshots Showcase Carousel */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
+      margin-top: 40px;
+    }
+    .gallery-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+    .gallery-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(94, 234, 212, 0.5);
+    }
+    .gallery-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .gallery-card-info {
+      padding: 20px;
+      background: #09101C;
+    }
+    .gallery-card-info h4 {
+      font-size: 17px;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 6px;
+    }
+    .gallery-card-info p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+
+    /* FAQ Section */
+    .faq-container {
+      max-width: 840px;
+      margin: 40px auto 0;
+    }
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 16px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .faq-item:hover { border-color: rgba(94, 234, 212, 0.35); }
+    .faq-question {
+      padding: 22px 26px;
+      font-size: 17px;
+      font-weight: 700;
+      color: #FFFFFF;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    .faq-question::after {
+      content: "+";
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--mint-glow);
+      transition: transform 0.2s;
+    }
+    .faq-item.active .faq-question::after {
+      transform: rotate(45deg);
+    }
+    .faq-answer {
+      display: none;
+      padding: 0 26px 22px;
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 16px;
+    }
+    .faq-item.active .faq-answer { display: block; }
+
+    /* CTA Bottom Box */
+    .cta-box {
+      margin: 110px 0 80px;
+      background: linear-gradient(135deg, rgba(15, 118, 110, 0.35), rgba(2, 132, 199, 0.25));
+      border: 1px solid rgba(94, 234, 212, 0.35);
+      border-radius: 28px;
+      padding: 60px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-box h2 {
+      font-size: 42px;
+      font-weight: 900;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .cta-box p {
+      font-size: 18px;
+      color: #CBD5E1;
+      max-width: 600px;
+      margin: 0 auto 36px;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: #05080E;
+      padding: 50px 0 30px;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      margin-right: 24px;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--mint-glow); }
+    .copyright {
+      text-align: center;
+      font-size: 13.5px;
+      color: #64748B;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero h1 { font-size: 42px; }
+      .card-col-8, .card-col-4, .card-col-6 { grid-column: span 12; }
+      .nav-menu { display: none; }
+      .hud-strip { flex-direction: column; align-items: flex-start; }
+      .comp-table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="brand">
+        <img src="assets/icon.png" alt="PureFile Logo">
+        <span>PureFile</span>
+      </a>
+      <nav class="nav-menu">
+        <a href="#features">Features</a>
+        <a href="#security">Architecture</a>
+        <a href="#screenshots">Showcase</a>
+        <a href="#faq">FAQ</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="https://play.google.com/store/apps/details?id=com.purefile.purefile" target="_blank" rel="noopener" class="btn-download-nav">Google Play ➔</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="pill-badge">
+        <span class="dot"></span>
+        100% On-Device · Zero Cloud Telemetry · Works in Airplane Mode
+      </div>
+      <h1>The Sovereign, Offline<br>PDF &amp; File Toolbox.</h1>
+      <p>
+        Compress, merge, convert, sign, and encrypt your documents privately on your device. Never uploaded to external servers. No user tracking. Pure sovereignty.
+      </p>
+
+      <div class="hero-cta">
+        <a href="https://play.google.com/store/apps/details?id=com.purefile.purefile" target="_blank" rel="noopener" class="btn-primary">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3.609 1.814L13.792 12 3.61 22.186a1.996 1.996 0 0 1-.61-.926V2.74c0-.342.22-.68.61-.926zm11.246 11.245l2.457-2.457-11.66-6.66 9.203 9.117zm0 1.882L5.65 24.06l11.66-6.662-2.455-2.457zm2.086-1.042l3.414-1.95a1.868 1.868 0 0 0 0-3.238l-3.414-1.95-1.745 1.745 1.745 1.745z"/>
+          </svg>
+          Get it on Google Play
+        </a>
+        <a href="#features" class="btn-secondary">
+          Explore All Tools ➔
+        </a>
+      </div>
+
+      <!-- Live Network HUD Card -->
+      <div class="hud-strip">
+        <div class="hud-item">
+          <span>📡 Outbound Egress:</span>
+          <span class="hud-val">0.00 B/s (ZERO LEAK)</span>
+        </div>
+        <div class="hud-item">
+          <span>🔒 Encryption:</span>
+          <span class="hud-val">AES-256 GCM StrongBox</span>
+        </div>
+        <div class="hud-item">
+          <span>⚡ Execution:</span>
+          <span class="hud-val">100% Local Sandbox</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Bento Grid -->
+  <section class="container" id="features">
+    <div class="section-header">
+      <span class="section-tag">All-In-One Utility Suite</span>
+      <h2 class="section-title">Engineered for Complete Privacy</h2>
+      <p class="section-desc">Every tool runs directly on your device CPU/GPU with zero reliance on cloud APIs or remote servers.</p>
+    </div>
+
+    <div class="bento-grid">
+      <!-- Bento 1: PDF Compression & Merge (8 cols) -->
+      <div class="bento-card card-col-8">
+        <div>
+          <div class="card-icon icon-teal">📄</div>
+          <h3>Smart PDF Compression &amp; Page Merge</h3>
+          <p>
+            Shrink heavy PDF documents by up to 90% without loss of readable text or sharp graphics. Visually arrange, reorder, delete, and combine multiple documents into a single polished file in seconds.
+          </p>
+        </div>
+        <div class="feature-tags">
+          <span class="tag">Smart Raster Reduction</span>
+          <span class="tag">Visual Page Reordering</span>
+          <span class="tag">Multi-File Batch Merge</span>
+          <span class="tag">Zero Server Upload</span>
+        </div>
+      </div>
+
+      <!-- Bento 2: Image Converter Studio (4 cols) -->
+      <div class="bento-card card-col-4">
+        <div>
+          <div class="card-icon icon-blue">🖼️</div>
+          <h3>Multi-Format Image Studio</h3>
+          <p>
+            Batch convert between JPG, PNG, WebP, and HEIC at blazing speed using multi-core parallel isolates.
+          </p>
+        </div>
+        <div class="feature-tags">
+          <span class="tag">HEIC to JPG</span>
+          <span class="tag">Lossless WebP</span>
+          <span class="tag">4K / 300 DPI</span>
+        </div>
+      </div>
+
+      <!-- Bento 3: Digital Signatures & Watermarks (6 cols) -->
+      <div class="bento-card card-col-6">
+        <div>
+          <div class="card-icon icon-pink">✍️</div>
+          <h3>Digital Signatures &amp; Security Seals</h3>
+          <p>
+            Sign contracts and invoices right on your glass screen. Stamp custom security watermarks, confidential badges, and attach cryptographic SHA-256 tamper-evident integrity seals.
+          </p>
+        </div>
+        <div class="feature-tags">
+          <span class="tag">Vector SVG Watermark</span>
+          <span class="tag">SHA-256 Timestamps</span>
+          <span class="tag">Legally Binding</span>
+        </div>
+      </div>
+
+      <!-- Bento 4: Biometric Hardware Vault (6 cols) -->
+      <div class="bento-card card-col-6">
+        <div>
+          <div class="card-icon icon-amber">🔒</div>
+          <h3>AES-256 Biometric Vault</h3>
+          <p>
+            Lock confidential passports, banking statements, and legal agreements behind fingerprint and 3D Face ID authentication. Master keys never touch storage and are guarded by Android's hardware StrongBox.
+          </p>
+        </div>
+        <div class="feature-tags">
+          <span class="tag">Hardware Keystore</span>
+          <span class="tag">Auto-Shred Buffer</span>
+          <span class="tag">BiometricPrompt</span>
+        </div>
+      </div>
+
+      <!-- Bento 5: ZIP Archiver & Extractor (6 cols) -->
+      <div class="bento-card card-col-6">
+        <div>
+          <div class="card-icon icon-purple">📦</div>
+          <h3>Fast Offline ZIP Archiver</h3>
+          <p>
+            Compress folders and collections into clean `.zip` archives. Inspect, unpack, and share archive contents without ads or annoying delays.
+          </p>
+        </div>
+        <div class="feature-tags">
+          <span class="tag">Fast Packing</span>
+          <span class="tag">Zero Telemetry</span>
+          <span class="tag">Full Hierarchy</span>
+        </div>
+      </div>
+
+      <!-- Bento 6: Zero Dangerous Permissions (6 cols) -->
+      <div class="bento-card card-col-6">
+        <div>
+          <div class="card-icon icon-teal">🛡️</div>
+          <h3>Zero Dangerous Permissions</h3>
+          <p>
+            PureFile never asks for camera, contacts, or location access. Files are opened solely through your Android Scoped Storage Document Picker.
+          </p>
+        </div>
+        <div class="feature-tags">
+          <span class="tag">No Camera Needed</span>
+          <span class="tag">Scoped Storage</span>
+          <span class="tag">100% Sandboxed</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Section -->
+  <section class="container" id="security">
+    <div class="comparison-section">
+      <div style="text-align:center; max-width: 700px; margin: 0 auto 20px;">
+        <span class="section-tag">Architectural Security</span>
+        <h2 style="font-size:32px; font-weight:900; color:#FFFFFF;">Why Offline Matters</h2>
+        <p style="color:var(--text-muted); font-size:16px;">See how PureFile compares to traditional online web converters.</p>
+      </div>
+
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Security &amp; Privacy Metric</th>
+            <th class="highlight">PureFile (This App)</th>
+            <th>Traditional Web Converters</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>File Processing Location</strong></td>
+            <td class="highlight">✓ 100% On-Device RAM Sandbox</td>
+            <td>❌ Uploaded to remote third-party cloud</td>
+          </tr>
+          <tr>
+            <td><strong>Works in Airplane Mode</strong></td>
+            <td class="highlight">✓ Yes, 100% functionality offline</td>
+            <td>❌ Fails without active internet</td>
+          </tr>
+          <tr>
+            <td><strong>Server Data Retention Risk</strong></td>
+            <td class="highlight">✓ Zero (files never leave device)</td>
+            <td>❌ Kept on cloud servers for hours/days</td>
+          </tr>
+          <tr>
+            <td><strong>Account / Login Required</strong></td>
+            <td class="highlight">✓ No account, no email needed</td>
+            <td>❌ Often forces email registration</td>
+          </tr>
+          <tr>
+            <td><strong>Confidential Document Safety</strong></td>
+            <td class="highlight">✓ Safe for Tax, Passports &amp; Legal</td>
+            <td>❌ High risk of data breach or AI scraping</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Showcase Screenshots Gallery -->
+  <section class="container" id="screenshots">
+    <div class="section-header">
+      <span class="section-tag">Visual Showcase</span>
+      <h2 class="section-title">Designed for Precision</h2>
+      <p class="section-desc">Clean, fast, and thoughtful ergonomics for Android devices.</p>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <img src="assets/screenshots/01-all_in_one_studio-1080x1920.png" alt="All-in-One Studio Dashboard">
+        <div class="gallery-card-info">
+          <h4>All-in-One Studio Dashboard</h4>
+          <p>Instant access to every PDF and file tool right from your home screen.</p>
+        </div>
+      </div>
+
+      <div class="gallery-card">
+        <img src="assets/screenshots/02-pdf_compression_merge-1080x1920.png" alt="PDF Compression & Merge">
+        <div class="gallery-card-info">
+          <h4>PDF Compression &amp; Page Merge</h4>
+          <p>Visual page organizer grid and before/after compression previews.</p>
+        </div>
+      </div>
+
+      <div class="gallery-card">
+        <img src="assets/screenshots/03-image_converter_studio-1080x1920.png" alt="Batch Image Converter">
+        <div class="gallery-card-info">
+          <h4>High-Speed Image Studio</h4>
+          <p>Convert multiple photos and documents to JPG, PNG, and WebP.</p>
+        </div>
+      </div>
+
+      <div class="gallery-card">
+        <img src="assets/screenshots/04-digital_signatures-1080x1920.png" alt="Digital Signatures & Watermarks">
+        <div class="gallery-card-info">
+          <h4>Digital Signatures &amp; Seals</h4>
+          <p>Draw legal cursive signatures, custom watermarks, and cryptographic seals.</p>
+        </div>
+      </div>
+
+      <div class="gallery-card">
+        <img src="assets/screenshots/05-biometric_vault-1080x1920.png" alt="Biometric Hardware Vault">
+        <div class="gallery-card-info">
+          <h4>Biometric AES-256 Vault</h4>
+          <p>Lock files behind hardware fingerprint and face authentication.</p>
+        </div>
+      </div>
+
+      <div class="gallery-card">
+        <img src="assets/screenshots/06-zero_cloud_privacy-1080x1920.png" alt="Zero Cloud Sovereign Architecture">
+        <div class="gallery-card-info">
+          <h4>Sovereign Privacy Architecture</h4>
+          <p>Monitored 0.00 B/s outbound network egress — your files stay yours.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="container" id="faq">
+    <div class="section-header">
+      <span class="section-tag">Frequently Asked Questions</span>
+      <h2 class="section-title">Answers to Common Questions</h2>
+      <p class="section-desc">Everything you need to know about PureFile's technology and privacy.</p>
+    </div>
+
+    <div class="faq-container">
+      <div class="faq-item active">
+        <div class="faq-question">Are my files ever uploaded to any server or cloud?</div>
+        <div class="faq-answer">
+          No. Absolutely never. PureFile does not maintain or operate any file conversion servers. All PDF rendering, merging, splitting, image conversions, and encryption execute 100% locally on your phone’s processor.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Does PureFile work without an internet connection?</div>
+        <div class="faq-answer">
+          Yes. PureFile is engineered to work seamlessly in Airplane Mode. You can convert images, merge multi-gigabyte PDFs, sign contracts, and access your encrypted vault with zero Wi-Fi or cellular connection.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">What permissions does PureFile require?</div>
+        <div class="faq-answer">
+          Zero dangerous permissions. PureFile does not request camera, contacts, microphone, or location access. It uses Android's modern Scoped Storage Document Picker, meaning it only accesses the specific files you tap to open.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">How does the Private Vault protect my files?</div>
+        <div class="faq-answer">
+          Vault files are encrypted using military-grade AES-256 GCM. The encryption keys are anchored directly into your phone’s Android StrongBox/Keystore hardware module, and are only accessible following a valid fingerprint or Face ID match.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Is PureFile completely free?</div>
+        <div class="faq-answer">
+          Yes! PureFile offers generous free limits for all offline file tools. An optional PureFile Pro upgrade is available via Google Play for users handling massive file batches or wanting a 100% ad-free experience.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA Box -->
+  <section class="container">
+    <div class="cta-box">
+      <h2>Take Full Control of Your Files</h2>
+      <p>Download PureFile on the Google Play Store today. Fast, private, and 100% offline.</p>
+      <a href="https://play.google.com/store/apps/details?id=com.purefile.purefile" target="_blank" rel="noopener" class="btn-primary">
+        Get PureFile on Google Play ➔
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <img src="assets/icon.png" alt="PureFile" style="width:32px; height:32px; border-radius:8px;">
+          <span style="color:#FFFFFF; font-weight:800; font-size:18px;">PureFile</span>
+        </div>
+        <div class="footer-links">
+          <a href="#features">Features</a>
+          <a href="#security">Architecture</a>
+          <a href="#faq">FAQ</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+          <a href="app-ads.txt">app-ads.txt</a>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2026 PureFile. All rights reserved. Developed by Durga Prasad.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // FAQ Accordion Interaction
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        item.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+</html>

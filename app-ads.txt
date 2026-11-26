@@ -1,0 +1,3 @@
+# PureFile Official AdMob app-ads.txt
+# Verification URL: https://prasad-dp.github.io/purefile-site/app-ads.txt
+google.com, pub-4572028109031472, DIRECT, f08c47fec0942fa0

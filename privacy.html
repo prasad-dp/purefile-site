@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — PureFile</title>
+  <meta name="description" content="Privacy Policy for PureFile — 100% offline, on-device PDF and file toolbox. Zero cloud uploads, zero tracking.">
+  <link rel="icon" type="image/png" href="assets/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070B14;
+      --bg-card: rgba(13, 21, 38, 0.75);
+      --bg-card-border: rgba(94, 234, 212, 0.15);
+      --text-main: #F1F5F9;
+      --text-muted: #94A3B8;
+      --teal-primary: #0F766E;
+      --mint-glow: #5EEAD4;
+      --cyan-bright: #38BDF8;
+      --blue-sapphire: #0284C7;
+      --emerald: #10B981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.7;
+      background-image: 
+        radial-gradient(circle at 10% 15%, rgba(15, 118, 110, 0.18) 0%, transparent 40%),
+        radial-gradient(circle at 90% 70%, rgba(2, 132, 199, 0.15) 0%, transparent 45%);
+      background-attachment: fixed;
+    }
+    header {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 11, 20, 0.85);
+    }
+    .header-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #FFFFFF;
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: -0.02em;
+    }
+    .logo img {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      box-shadow: 0 4px 12px rgba(15, 118, 110, 0.4);
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      margin-left: 20px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--mint-glow); }
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: var(--emerald);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #FFFFFF 0%, #E2E8F0 50%, var(--mint-glow) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .effective-date {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 40px;
+    }
+    .highlight-box {
+      background: rgba(15, 118, 110, 0.15);
+      border: 1px solid rgba(94, 234, 212, 0.3);
+      border-left: 4px solid var(--mint-glow);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 48px;
+      font-size: 15.5px;
+      color: #E2E8F0;
+    }
+    h2 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+      margin: 36px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    h2::before {
+      content: "";
+      width: 4px;
+      height: 20px;
+      background: linear-gradient(to bottom, var(--mint-glow), var(--blue-sapphire));
+      border-radius: 2px;
+    }
+    p, ul {
+      color: #CBD5E1;
+      font-size: 15.5px;
+      margin-bottom: 18px;
+    }
+    ul { padding-left: 24px; }
+    li { margin-bottom: 10px; }
+    strong { color: #FFFFFF; }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--bg-card-border);
+      border-radius: 16px;
+      padding: 24px;
+      margin: 20px 0 28px;
+      backdrop-filter: blur(10px);
+    }
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 5px;
+      color: var(--mint-glow);
+    }
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 32px 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    footer a { color: var(--mint-glow); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="assets/icon.png" alt="PureFile Logo">
+        <span>PureFile</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="terms.html">Terms</a>
+        <a href="app-ads.txt">app-ads.txt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="badge">🛡️ 100% On-Device Sovereignty</div>
+    <h1>Privacy Policy</h1>
+    <div class="effective-date">Effective Date: November 26, 2026 · Version 1.0</div>
+
+    <div class="highlight-box">
+      <strong>The PureFile Core Commitment:</strong> PureFile is architected from the ground up as a <strong>100% offline, on-device application</strong>. Your documents, photos, signatures, PDFs, and archives never leave your hardware. PureFile does not operate external file-processing servers, does not upload files, and does not harvest personal user data.
+    </div>
+
+    <h2>1. Information We Do Not Collect</h2>
+    <p>Unlike conventional web-based or cloud utilities, PureFile executes every pipeline locally inside your device’s sandbox. We do not collect, transmit, store, or sell:</p>
+    <ul>
+      <li><strong>Your Documents & Files:</strong> Any PDF, image, document, or ZIP archive selected is processed strictly in your device's volatile memory (RAM).</li>
+      <li><strong>Biometric Data:</strong> PureFile's Private Vault uses Android's local BiometricPrompt hardware keystore. Biometric templates (fingerprint, facial data) are handled exclusively by your device's Secure Enclave/StrongBox and are never accessible to PureFile.</li>
+      <li><strong>Personal Identifiable Information (PII):</strong> We do not require account creation, login, email addresses, phone numbers, or passwords to use the core utility tools.</li>
+      <li><strong>Location or Device Identifiers:</strong> We do not request, access, or track your GPS location or device contacts.</li>
+    </ul>
+
+    <h2>2. Local File Processing & Ephemeral Memory</h2>
+    <div class="card">
+      <p>When you compress a PDF, convert an image, merge documents, or sign a file:</p>
+      <ul>
+        <li><strong>Scoped Access:</strong> PureFile only accesses the exact files you explicitly select via the system document/photo picker.</li>
+        <li><strong>Ephemeral Buffers:</strong> Temporary processing memory is overwritten and freed as soon as the task completes or when the app is switched.</li>
+        <li><strong>Local Output Directory:</strong> Saved files are written solely to your local storage or your device's designated app documents directory. You have total control to view, share, or delete them anytime.</li>
+      </ul>
+    </div>
+
+    <h2>3. Advertising (Google AdMob)</h2>
+    <p>PureFile provides free access to offline tools supported by Google AdMob. The Google Mobile Ads SDK may collect certain limited, pseudonymous technical data to serve advertisements, such as:</p>
+    <ul>
+      <li>Anonymous advertising identifiers (Google Advertising ID / GAID on Android).</li>
+      <li>Non-sensitive device diagnostics, device model, operating system version, and general network connection type.</li>
+      <li>Performance metrics related to ad displays (e.g., ad impressions and click events).</li>
+    </ul>
+    <p>AdMob's collection and handling of advertising data is governed by the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:var(--mint-glow);">Google Privacy Policy</a> and <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener" style="color:var(--mint-glow);">Google Advertising Policies</a>.</p>
+    <p><strong>Opting Out:</strong> You can reset or opt out of personalized ads at any time through your Android device settings under <code>Settings &gt; Google &gt; Ads &gt; Delete advertising ID</code> or by upgrading to <strong>PureFile Pro</strong> for an entirely ad-free experience.</p>
+
+    <h2>4. In-App Purchases (PureFile Pro)</h2>
+    <p>If you choose to purchase PureFile Pro, your transaction is processed entirely through <strong>Google Play In-App Billing</strong>. PureFile does not receive, process, or store your credit card, bank details, or billing address. We receive only a cryptographic purchase token from Google Play to verify that your Pro license is active.</p>
+
+    <h2>5. App Permissions</h2>
+    <p>PureFile is intentionally engineered to avoid sensitive or dangerous Android permissions:</p>
+    <ul>
+      <li><code>android.permission.INTERNET</code>: Required solely by Google Play Billing and the Google Mobile Ads SDK to render banner ads and verify purchase status. Core file conversions and PDF tools never transmit files across this socket and function 100% in Airplane Mode.</li>
+      <li><code>android.permission.USE_BIOMETRIC</code>: Required solely to trigger your local hardware fingerprint or Face ID prompt for decrypting your on-device Private Vault.</li>
+      <li><strong>Camera Permission:</strong> PureFile does NOT request or require camera permission.</li>
+    </ul>
+
+    <h2>6. Security of Your Files</h2>
+    <p>Files stored inside the <strong>Private Vault</strong> are encrypted using industry-standard <strong>AES-256 GCM</strong> encryption. The master cryptographic key is secured within Android's hardware-backed Keystore / StrongBox chip and is accessible only after successful biometric authentication.</p>
+
+    <h2>7. Children's Privacy</h2>
+    <p>PureFile is a general utility tool and does not knowingly collect any information from children under the age of 13 (or under 16 in the European Union). Because our application does not collect personal identifiers, it complies fully with COPPA and the Google Play Families Policy.</p>
+
+    <h2>8. GDPR & CCPA Compliance</h2>
+    <p>Because PureFile does not collect, retain, or monetize personal data or documents, your fundamental privacy rights (Right to Access, Right to Forget, Right to Data Portability, and Right against Data Sale) are protected by architectural default. No user files are ever sold or shared with data brokers.</p>
+
+    <h2>9. Contact Us</h2>
+    <p>If you have any questions or concerns regarding this Privacy Policy or PureFile’s privacy-first architecture, please reach out to us directly:</p>
+    <div class="card">
+      <p style="margin-bottom:6px;"><strong>PureFile Development Team</strong></p>
+      <p style="margin-bottom:6px;">Developer: Durga Prasad (prasad-dp)</p>
+      <p style="margin-bottom:0;">Email: <a href="mailto:durgaprasadkalepuu@gmail.com" style="color:var(--mint-glow);">durgaprasadkalepuu@gmail.com</a></p>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 PureFile. All rights reserved. · <a href="index.html">Home</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a> · <a href="app-ads.txt">app-ads.txt</a></p>
+  </footer>
+</body>
+</html>
